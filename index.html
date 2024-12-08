@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website Title</title>
+    <title>CSV Table Viewer</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,80 +14,47 @@
         h1 {
             color: #333;
         }
-        table {
-            margin: 20px auto;
-            border-collapse: collapse;
-            width: 80%;
-        }
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
     </style>
 </head>
 <body>
-    <h1>Your Website Title</h1>
-    <table id="csvTable">
-        <thead>
-            <tr id="headerRow"></tr>
-        </thead>
-        <tbody id="dataRows"></tbody>
-    </table>
+    <h1>CSV Table Viewer</h1>
+    <table id="csvTable" class="display" style="width:80%; margin: 20px auto;"></table>
+
+    <!-- Include Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
     <script>
         // Path to the CSV file
         const csvFilePath = 'vacancies.csv'; // Replace with your CSV file name
 
-        // Function to fetch and display the CSV
+        // Function to load and display CSV
         async function loadCSV() {
-            try {
-                const response = await fetch(csvFilePath);
-                if (!response.ok) throw new Error('Failed to load CSV file');
-
-                const csvText = await response.text();
-                displayCSV(csvText);
-            } catch (error) {
-                console.error(error);
-                document.body.innerHTML += `<p style="color: red;">Error loading CSV file: ${error.message}</p>`;
-            }
+            Papa.parse(csvFilePath, {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    renderTable(results.data);
+                },
+                error: function(error) {
+                    console.error('Error loading CSV:', error);
+                }
+            });
         }
 
-        // Function to parse and display CSV content
-        function displayCSV(csvText) {
-            const rows = csvText.split('\n').map(row => row.split(','));
-
-            if (rows.length > 0) {
-                // Display headers
-                const headerRow = rows[0];
-                const headerElement = document.getElementById('headerRow');
-                headerRow.forEach(header => {
-                    const th = document.createElement('th');
-                    th.textContent = header.trim();
-                    headerElement.appendChild(th);
-                });
-
-                // Display data rows
-                const dataRowsElement = document.getElementById('dataRows');
-                rows.slice(1).forEach(row => {
-                    const tr = document.createElement('tr');
-                    row.forEach(cell => {
-                        const td = document.createElement('td');
-                        td.textContent = cell.trim();
-                        tr.appendChild(td);
-                    });
-                    dataRowsElement.appendChild(tr);
-                });
-            }
+        // Function to render table using DataTables
+        function renderTable(data) {
+            $('#csvTable').DataTable({
+                data: data,
+                columns: Object.keys(data[0]).map(key => ({ title: key, data: key })),
+                responsive: true
+            });
         }
 
-        // Load the CSV file on page load
+        // Load CSV on page load
         loadCSV();
     </script>
 </body>
 </html>
+
