@@ -35,12 +35,13 @@
                 download: true,
                 header: true,
                 complete: function(results) {
+                    console.log('Parsed Data:', results.data); // Inspect parsed data
                     renderTable(results.data);
                 },
                 error: function(error) {
                     console.error('Error loading CSV:', error);
                 }
-            });
+            });;
         }
 
         // Function to render table using DataTables
