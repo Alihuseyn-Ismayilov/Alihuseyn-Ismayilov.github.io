@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,51 +10,75 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
   <style>
-    body { font-family: 'Inter', sans-serif; background: #0f172a; color: #e2e8f0; }
+    :root {
+      --bg: #0f172a;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --card-bg: rgba(255,255,255,0.05);
+      --card-hover: rgba(255,255,255,0.08);
+      --card-border: rgba(255,255,255,0.12);
+    }
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --text: #1f2937;
+      --muted: #475569;
+      --accent: #0284c7;
+      --card-bg: #ffffff;
+      --card-hover: #f1f5f9;
+      --card-border: rgba(15,23,42,0.08);
+    }
+    * { transition: background-color .35s ease, color .35s ease, border-color .35s ease; }
     html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); }
+    .themed-card { background: var(--card-bg); border: 1px solid var(--card-border); }
+    .themed-card:hover { background: var(--card-hover); }
     .timeline::before { content: ''; position: absolute; left: 1rem; top: 0; bottom: 0; width: 2px; background: rgba(125,211,252,0.3); }
     .timeline-item { position: relative; padding-left: 3rem; margin-bottom: 2.5rem; }
-    .timeline-dot { position: absolute; left: 0.5rem; top: 0.4rem; height: 12px; width: 12px; background: #38bdf8; border-radius: 50%; box-shadow: 0 0 10px #38bdf8; }
+    .timeline-dot { position: absolute; left: 0.5rem; top: 0.4rem; height: 12px; width: 12px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
     .badge { padding: .25rem .75rem; border-radius: 9999px; background: rgba(255,255,255,.1); font-size: .875rem; display:inline-block; }
+    [data-theme="light"] .badge { background: #e2e8f0; color: #0f172a; }
     .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 60; }
     .modal.active { display: flex; }
     .modal-content { background: rgba(30,41,59,0.98); padding: 1.25rem 1.5rem; border-radius: 1rem; max-width: 880px; width: 92%; max-height: 90vh; overflow-y: auto; }
+    [data-theme="light"] .modal-content { background: #ffffff; color: #0f172a; }
   </style>
 </head>
 <body class="overflow-x-hidden">
 
   <!-- NAV -->
-  <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur bg-white/5 border-b border-white/10">
+  <nav class="fixed top-0 left-0 w-full z-50 backdrop-blur" style="background: color-mix(in oklab, var(--bg) 85%, transparent); border-bottom: 1px solid var(--card-border);">
     <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
-      <a href="#home" class="font-extrabold tracking-tight text-xl md:text-2xl text-sky-300">Alihuseyn Ismayilov</a>
-      <div class="hidden md:flex items-center gap-6 text-sm text-slate-300">
+      <a href="#home" class="font-extrabold tracking-tight text-xl md:text-2xl" style="color: var(--accent);">Alihuseyn Ismayilov</a>
+      <div class="hidden md:flex items-center gap-6 text-sm" style="color: var(--muted);">
         <a href="#education" class="hover:text-sky-400">Education</a>
         <a href="#experience" class="hover:text-sky-400">Experience</a>
         <a href="#projects" class="hover:text-sky-400">Projects</a>
         <a href="#skills" class="hover:text-sky-400">Skills</a>
         <a href="#certifications" class="hover:text-sky-400">Certificates</a>
         <a href="#languages" class="hover:text-sky-400">Languages</a>
-        <a href="#contact" class="hover:text-sky-400">Contact</a>
+        <a href="#home" class="hover:text-sky-400">Contact</a>
       </div>
+      <button id="themeToggle" class="text-xl ml-4 p-2 rounded-full hover:bg-white/10 transition" aria-label="Toggle theme">🌙</button>
     </div>
   </nav>
 
   <main class="px-6 md:px-10 lg:px-16 pt-24 pb-16">
 
-    <!-- HERO -->
+    <!-- HERO / CONTACT -->
     <section id="home" class="max-w-6xl mx-auto" data-aos="fade-up" data-aos-duration="800">
-      <div class="bg-white/5 rounded-3xl p-6 md:p-10 grid md:grid-cols-[300px,1fr] gap-8 items-center">
+      <div class="themed-card rounded-3xl p-6 md:p-10 grid md:grid-cols-[300px,1fr] gap-8 items-center">
         <div class="relative flex justify-center md:justify-start">
-          <img src="pictures/portfolio_pic.jpeg" alt="Alihuseyn Ismayilov" class="h-52 w-52 md:h-64 md:w-64 rounded-2xl object-cover ring-2 ring-sky-400/30 shadow-lg" />
-          <span class="absolute -bottom-3 -right-3 bg-sky-400 text-slate-900 text-xs font-semibold px-3 py-1 rounded-full">Open to opportunities</span>
+          <img src="pictures/portfolio_pic.jpeg" alt="Alihuseyn Ismayilov" class="h-52 w-52 md:h-64 md:w-64 rounded-2xl object-cover ring-2 shadow-lg" style="--tw-ring-color: color-mix(in oklab, var(--accent) 30%, transparent);" />
+          <span class="absolute -bottom-3 -right-3 text-xs font-semibold px-3 py-1 rounded-full" style="background: var(--accent); color: #0b1220;">Open to opportunities</span>
         </div>
         <div>
-          <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Alihuseyn <span class="text-sky-400">Ismayilov</span></h1>
-          <p class="text-lg text-slate-300 mb-4">Lead Data Scientist | ML | Credit Risk | Predictive Analytics</p>
-          <p class="text-slate-200/90 leading-relaxed mb-6">Data Scientist specializing in machine learning, credit risk modeling, sales propensity, and fraud detection. I build end‑to‑end predictive systems — from datamarts to deployment — that create measurable business impact.</p>
+          <h1 class="text-4xl md:text-5xl font-extrabold mb-2">Alihuseyn <span style="color: var(--accent);">Ismayilov</span></h1>
+          <p class="text-lg mb-4" style="color: var(--muted);">Lead Data Scientist | ML | Credit Risk | Predictive Analytics</p>
+          <p class="leading-relaxed mb-6">Data Scientist 3+ years of experience specializing in machine learning, credit risk modeling, sales propensity, and fraud detection. I build end-to-end predictive systems — from datamarts to deployment — that create measurable business impact.</p>
           <div class="grid sm:grid-cols-2 gap-3 text-sm">
-            <a href="mailto:elihuseynismayilov87@gmail.com" class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition"><i class="fa-solid fa-envelope text-sky-400"></i>Email</a>
-            <a href="https://www.linkedin.com/in/alihuseyn-ismayilov-05aa43212/" target="_blank" class="flex items-center gap-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition"><i class="fa-brands fa-linkedin text-sky-400"></i>LinkedIn</a>
+            <a href="mailto:elihuseynismayilov87@gmail.com" class="flex items-center gap-2 px-4 py-3 rounded-xl themed-card hover:opacity-90 transition"><i class="fa-solid fa-envelope" style="color: var(--accent);"></i>Email</a>
+            <a href="https://www.linkedin.com/in/alihuseyn-ismayilov-05aa43212/" target="_blank" class="flex items-center gap-2 px-4 py-3 rounded-xl themed-card hover:opacity-90 transition"><i class="fa-brands fa-linkedin" style="color: var(--accent);"></i>LinkedIn</a>
           </div>
         </div>
       </div>
@@ -62,123 +86,118 @@
 
     <!-- EDUCATION -->
     <section id="education" class="max-w-6xl mx-auto mt-20" data-aos="fade-up" data-aos-duration="800">
-      <h2 class="text-3xl font-bold mb-8 text-sky-400">Education</h2>
+      <h2 class="text-3xl font-bold mb-8" style="color: var(--accent);">Education</h2>
       <div class="grid md:grid-cols-2 gap-8">
-        <div class="bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition">
+        <div class="themed-card p-6 rounded-2xl transition">
           <h3 class="text-xl font-semibold">Azerbaijan Technical University</h3>
-          <p class="text-slate-300">Master’s Degree in Data Analysis (GPA: 3.7)</p>
-          <p class="text-slate-400 text-sm mt-1">Sep 2022 – Jul 2024</p>
+          <p style="color: var(--muted);">Master’s Degree in Data Analysis (GPA: 3.7)</p>
+          <p class="text-sm mt-1" style="color: var(--muted);">Sep 2022 – Jul 2024</p>
+          <p class="text-sm mt-2">Focus: advanced analytics, ML, applied statistics.</p>
         </div>
-        <div id="khazarCard" class="cursor-pointer bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition">
+        <div id="khazarCard" class="cursor-pointer themed-card p-6 rounded-2xl transition">
           <h3 class="text-xl font-semibold">Khazar University</h3>
-          <p class="text-slate-300">Bachelor’s Degree in Computer Engineering (GPA: 3.3)</p>
-          <p class="text-slate-400 text-sm mt-1">Sep 2018 – Jul 2022</p>
-          <p class="text-slate-400 text-sm mt-1">Dean’s Honor List (6x)</p>
-          <p class="text-sky-400 text-sm mt-2 italic">Click to view honors & credentials</p>
+          <p style="color: var(--muted);">Bachelor’s Degree in Computer Engineering (GPA: 3.3)</p>
+          <p class="text-sm mt-1" style="color: var(--muted);">Sep 2018 – Jul 2022</p>
+          <p class="text-sm mt-1" style="color: var(--muted);">Dean’s Honor List (6x)</p>
+          <p class="text-sm mt-2 italic" style="color: var(--accent);">Click to view honors & credentials</p>
         </div>
       </div>
     </section>
 
     <!-- EXPERIENCE -->
     <section id="experience" class="max-w-6xl mx-auto mt-20 relative" data-aos="fade-up" data-aos-duration="800">
-      <h2 class="text-3xl font-bold mb-8 text-sky-400">Work Experience <span class="text-slate-400 text-sm font-normal">(Preview)</span></h2>
-      <p class="text-slate-400 mb-10">Full project metrics and visuals appear in the Projects section.</p>
+      <h2 class="text-3xl font-bold mb-8" style="color: var(--accent);">Work Experience</h2>
       <div class="timeline pl-8 relative">
         <!-- Yelo -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <h3 class="text-xl font-semibold text-white">Yelo Bank — Lead Data Scientist</h3>
-          <p class="text-slate-400 text-sm">Jul 2025 – Present • Baku, Azerbaijan</p>
-          <ul class="mt-2 text-slate-300 list-disc ml-5 space-y-1">
-            <li>Developing PD models for retail customers; real‑time scoring & monitoring.</li>
-            <li>Built credit/financial/behavioral datamarts for predictive modeling.</li>
-            <li>12%+ revenue uplift via optimized lending decisions (preview metric).</li>
+          <h3 class="text-xl font-semibold">Yelo Bank — Lead Data Scientist</h3>
+          <p class="text-sm" style="color: var(--muted);">Jul 2025 – Present • Baku, Azerbaijan</p>
+          <ul class="mt-2 list-disc ml-5 space-y-1">
+            <li>Led development of Retail PD models under Central Bank timelines; Oracle SQL → DWH → model pipelines.</li>
+            <li>Clean EDA/validation layers; automated real-time scoring & monitoring.</li>
+            <li>Stack: Python, SQL, Scikit-learn (LogReg & Tree-based), Tableau, Kubernetes.</li>
           </ul>
-          <p class="mt-2 text-sky-400 text-sm">Stack: Python, SQL, Scikit‑learn (LogReg & Tree‑based), Tableau, Kubernetes</p>
         </div>
         <!-- PASHA -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <h3 class="text-xl font-semibold text-white">PASHA Bank — Data Scientist</h3>
-          <p class="text-slate-400 text-sm">Nov 2023 – Jul 2025 • Baku, Azerbaijan</p>
-          <ul class="mt-2 text-slate-300 list-disc ml-5 space-y-1">
-            <li>Cross‑sell propensity, fraud detection, and news/NLP analytics.</li>
-            <li>E2E ML lifecycle in Dataiku (data → model → deployment → monitoring).</li>
-            <li>~10% quarterly revenue uplift; +7% campaign conversion (preview).</li>
+          <h3 class="text-xl font-semibold">PASHA Bank — Data Scientist</h3>
+          <p class="text-sm" style="color: var(--muted);">Nov 2023 – Jul 2025 • Baku, Azerbaijan</p>
+          <ul class="mt-2 list-disc ml-5 space-y-1">
+            <li>Delivered cross-sell propensity (PU-Learning, RFM), near real-time fraud detection, and news/NLP analytics.</li>
+            <li>Owned E2E Dataiku lifecycle (ETL → features → training → deployment → monitoring); built Tableau income dashboards.</li>
+            <li>Stack: Python, SQL, Scikit-learn, Dataiku, Tableau, Flask.</li>
           </ul>
-          <p class="mt-2 text-sky-400 text-sm">Stack: Python, SQL, Scikit‑learn, Dataiku, Tableau</p>
         </div>
         <!-- ABB -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <h3 class="text-xl font-semibold text-white">International Bank of Azerbaijan (ABB) — Data Analyst</h3>
-          <p class="text-slate-400 text-sm">Mar 2023 – Nov 2023 • Baku, Azerbaijan</p>
-          <ul class="mt-2 text-slate-300 list-disc ml-5 space-y-1">
-            <li>Automated KPI dashboards in Qlik Sense for portfolio & finance teams.</li>
-            <li>Built internal analytics apps; deployment with Flask & Streamlit.</li>
-            <li>Reduced reporting cycle ~40% (preview).</li>
+          <h3 class="text-xl font-semibold">International Bank of Azerbaijan (ABB) — Data Analyst</h3>
+          <p class="text-sm" style="color: var(--muted);">Mar 2023 – Nov 2023 • Baku, Azerbaijan</p>
+          <ul class="mt-2 list-disc ml-5 space-y-1">
+            <li>Built KPI dashboards in Qlik Sense for finance/portfolio teams; automated reporting flows.</li>
+            <li>Developed internal analytics apps and deployed with Flask & Streamlit.</li>
+            <li>Stack: SQL, Excel, Qlik Sense, Python.</li>
           </ul>
-          <p class="mt-2 text-sky-400 text-sm">Stack: SQL, Excel, Qlik Sense, Python, Deployment (Flask & Streamlit)</p>
         </div>
         <!-- Innab -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <h3 class="text-xl font-semibold text-white">Innab Business School — Python Instructor</h3>
-          <p class="text-slate-400 text-sm">Apr 2023 – Mar 2024 • Baku, Azerbaijan</p>
-          <ul class="mt-2 text-slate-300 list-disc ml-5 space-y-1">
-            <li>Taught Python for Data Analysis (NumPy, Pandas, viz, ML basics) to 100+ students.</li>
-            <li>Mentored hands‑on mini projects; assessments & feedback.</li>
+          <h3 class="text-xl font-semibold">Innab Business School — Python Instructor</h3>
+          <p class="text-sm" style="color: var(--muted);">Apr 2023 – Mar 2024 • Baku, Azerbaijan</p>
+          <ul class="mt-2 list-disc ml-5 space-y-1">
+            <li>Taught Python for Data Analysis (NumPy, Pandas, visualization, ML basics) to 100+ students; mentored projects.</li>
           </ul>
         </div>
         <!-- Ateshgah -->
         <div class="timeline-item">
           <div class="timeline-dot"></div>
-          <h3 class="text-xl font-semibold text-white">Ateshgah Insurance — Data Analyst</h3>
-          <p class="text-slate-400 text-sm">Aug 2022 – Mar 2023 • Baku, Azerbaijan</p>
-          <ul class="mt-2 text-slate-300 list-disc ml-5 space-y-1">
-            <li>Policy & claim analytics pipelines; fraud‑risk pattern exploration.</li>
-            <li>Supported ops dashboards; ~8% premium collection efficiency (preview).</li>
+          <h3 class="text-xl font-semibold">Ateshgah Insurance — Data Analyst</h3>
+          <p class="text-sm" style="color: var(--muted);">Aug 2022 – Mar 2023 • Baku, Azerbaijan</p>
+          <ul class="mt-2 list-disc ml-5 space-y-1">
+            <li>Analyzed policy & claim data; automated SQL reporting; explored fraud-risk patterns.</li>
+            <li>Stack: SQL, Python, Qlik Sense.</li>
           </ul>
-          <p class="mt-2 text-sky-400 text-sm">Stack: SQL, Python, Qlik Sense</p>
         </div>
       </div>
     </section>
 
     <!-- PROJECTS -->
     <section id="projects" class="max-w-6xl mx-auto mt-20" data-aos="fade-up" data-aos-duration="800">
-      <h2 class="text-3xl font-bold mb-8 text-sky-400">Projects</h2>
+      <h2 class="text-3xl font-bold mb-8" style="color: var(--accent);">Projects</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- PD Retail -->
-        <article class="bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition cursor-pointer" onclick="openModal('pd')">
+        <article class="themed-card p-6 rounded-2xl transition cursor-pointer" onclick="openModal('pd')">
           <h3 class="text-xl font-semibold mb-2">PD Model for Retail Customers (Yelo Bank)</h3>
-          <p class="text-slate-300">Developed PD model for retail portfolio under Central Bank requirements. <span class="text-sky-300">Click to see detailed information and process.</span></p>
+          <p>Developed a full PD model for retail loans under Central Bank of Azerbaijan’s one-month regulatory deadline. Delivered end-to-end solution — data sourcing, modeling, validation, and deployment on Kubernetes. <span style="color: var(--accent);">Click to see detailed information and process.</span></p>
         </article>
         <!-- News NLP -->
-        <article class="bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition cursor-pointer" onclick="openModal('news')">
+        <article class="themed-card p-6 rounded-2xl transition cursor-pointer" onclick="openModal('news')">
           <h3 class="text-xl font-semibold mb-2">News & NLP Analytics (PASHA Bank)</h3>
-          <p class="text-slate-300">Real‑time news intelligence for CRM & Counterparty Check (10‑min cycle). <span class="text-sky-300">Click to see detailed information and process.</span></p>
+          <p>Real-time news intelligence for CRM & Counterparty Check (10-min cycle). <span style="color: var(--accent);">Click to see detailed information and process.</span></p>
         </article>
         <!-- Email Efficiency -->
-        <article class="bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition cursor-pointer" onclick="openModal('email')">
+        <article class="themed-card p-6 rounded-2xl transition cursor-pointer" onclick="openModal('email')">
           <h3 class="text-xl font-semibold mb-2">Operator Email Efficiency Dashboard (PASHA Bank)</h3>
-          <p class="text-slate-300">FRT & HT KPIs, efficiency score, staffing simulation. <span class="text-sky-300">Click to see detailed information and process.</span></p>
+          <p>FRT & HT KPIs, efficiency score, staffing simulation. <span style="color: var(--accent);">Click to see detailed information and process.</span></p>
         </article>
         <!-- Cross-Sell -->
-        <article class="bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition cursor-pointer" onclick="openModal('crosssell')">
-          <h3 class="text-xl font-semibold mb-2">Cross‑Sell Propensity Models (PASHA Bank)</h3>
-          <p class="text-slate-300">ML + rule‑based recommendations for FX, Loans, Salary, Factoring, Foreign Payments. <span class="text-sky-300">Click to see detailed information and process.</span></p>
+        <article class="themed-card p-6 rounded-2xl transition cursor-pointer" onclick="openModal('crosssell')">
+          <h3 class="text-xl font-semibold mb-2">Cross-Sell Propensity Models (PASHA Bank)</h3>
+          <p>ML + rule-based recommendations for FX, Loans, Salary, Factoring, Foreign Payments. <span style="color: var(--accent);">Click to see detailed information and process.</span></p>
         </article>
         <!-- Fraud -->
-        <article class="bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition cursor-pointer" onclick="openModal('fraud')">
+        <article class="themed-card p-6 rounded-2xl transition cursor-pointer" onclick="openModal('fraud')">
           <h3 class="text-xl font-semibold mb-2">Fraud Detection & Prevention (PASHA Bank)</h3>
-          <p class="text-slate-300">Hybrid anomaly + supervised <em>near real‑time</em> fraud detection in Dataiku. <span class="text-sky-300">Click to see detailed information and process.</span></p>
+          <p>Hybrid anomaly + supervised <em>near real-time</em> fraud detection in Dataiku. <span style="color: var(--accent);">Click to see detailed information and process.</span></p>
         </article>
       </div>
     </section>
 
     <!-- SKILLS -->
     <section id="skills" class="max-w-6xl mx-auto mt-20" data-aos="fade-up" data-aos-duration="800">
-      <h2 class="text-3xl font-bold mb-8 text-sky-400">Languages & Skills</h2>
+      <h2 class="text-3xl font-bold mb-8" style="color: var(--accent);">Languages & Skills</h2>
       <div class="grid md:grid-cols-2 gap-10 items-start">
         <div>
           <h3 class="text-xl font-semibold mb-3">Core Skills</h3>
@@ -192,7 +211,7 @@
           </div>
           <h3 class="text-xl font-semibold mb-3">Tech Stack</h3>
           <div class="flex flex-wrap gap-2 text-sm">
-            <span class="badge">Python (Pandas, NumPy, Scikit‑learn)</span>
+            <span class="badge">Python (Pandas, NumPy, Scikit-learn)</span>
             <span class="badge">SQL (Oracle, PostgreSQL)</span>
             <span class="badge">Dataiku</span>
             <span class="badge">Tableau</span>
@@ -202,112 +221,176 @@
             <span class="badge">Kubernetes</span>
           </div>
         </div>
-        <!-- Horizontal bar chart with fixed height to avoid growth -->
-        <div class="bg-white/5 rounded-2xl p-6 h-64">
+        <!-- Horizontal bar chart -->
+        <div class="themed-card rounded-2xl p-6 relative" style="height: 260px;">
           <h4 class="font-semibold mb-3">Years of Experience (edit values in code)</h4>
-          <canvas id="skillsChart" class="w-full h-full"></canvas>
+          <div class="absolute inset-0 pt-10">
+            <canvas id="skillsChart"></canvas>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- CERTIFICATIONS -->
     <section id="certifications" class="max-w-6xl mx-auto mt-20" data-aos="fade-up" data-aos-duration="800">
-      <h2 class="text-3xl font-bold mb-8 text-sky-400">Certificates & Awards</h2>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition">
+      <h2 class="text-3xl font-bold mb-8" style="color: var(--accent);">Certificates & Awards</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <article class="themed-card p-6 rounded-2xl cursor-pointer" onclick="openModal('cert-dataiku')">
+          <h3 class="text-lg font-semibold">Dataiku Certificates</h3>
+          <p class="text-sm" style="color: var(--muted);">Advanced Designer & Core Designer</p>
+          <p class="mt-2 text-sm" style="color: var(--accent);">Click to choose a credential</p>
+        </article>
+        <article class="themed-card p-6 rounded-2xl cursor-pointer" onclick="openModal('cert-sql')">
           <h3 class="text-lg font-semibold">Oracle SQL for Data Analysis</h3>
-          <p class="text-slate-400 text-sm">QSS Analytics • Oct 2021</p>
-          <a href="#" class="text-sky-400 text-sm mt-2 inline-block hover:underline">View Credential</a>
-        </div>
-        <div class="bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition">
-          <h3 class="text-lg font-semibold">Dataiku Core Designer</h3>
-          <p class="text-slate-400 text-sm">Dataiku • Dec 2023</p>
-          <a href="#" class="text-sky-400 text-sm mt-2 inline-block hover:underline">View Credential</a>
-        </div>
-        <div class="bg-white/5 p-6 rounded-2xl hover:bg-white/10 transition">
-          <h3 class="text-lg font-semibold">Dean’s Honor (6x)</h3>
-          <p class="text-slate-400 text-sm">Khazar University</p>
-          <a href="#education" class="text-sky-400 text-sm mt-2 inline-block hover:underline">See Honors</a>
-        </div>
+          <p class="text-sm" style="color: var(--muted);">QSS Analytics • Oct 2021</p>
+          <p class="mt-2 text-sm" style="color: var(--accent);">Click to view certificate</p>
+        </article>
+        <article class="themed-card p-6 rounded-2xl cursor-pointer" onclick="openModal('cert-honors')">
+          <h3 class="text-lg font-semibold">Dean’s Honor (6x) — Khazar</h3>
+          <p class="text-sm" style="color: var(--muted);">Open honors gallery</p>
+          <p class="mt-2 text-sm" style="color: var(--accent);">Click to view images</p>
+        </article>
       </div>
     </section>
 
     <!-- LANGUAGES -->
     <section id="languages" class="max-w-6xl mx-auto mt-20" data-aos="fade-up" data-aos-duration="800">
-      <h2 class="text-3xl font-bold mb-8 text-sky-400">Languages</h2>
+      <h2 class="text-3xl font-bold mb-8" style="color: var(--accent);">Languages</h2>
       <div class="grid sm:grid-cols-3 gap-4 text-sm">
-        <div class="bg-white/5 p-4 rounded-xl flex items-center justify-between"><span>Azerbaijani</span><span class="text-slate-300">Native</span></div>
-        <div class="bg-white/5 p-4 rounded-xl flex items-center justify-between"><span>Turkish</span><span class="text-slate-300">Advanced</span></div>
-        <div class="bg-white/5 p-4 rounded-xl flex items-center justify-between"><span>English</span><span class="text-slate-300">Upper‑Intermediate</span></div>
+        <div class="themed-card p-4 rounded-xl flex items-center justify-between"><span>Azerbaijani</span><span style="color: var(--muted);">Native</span></div>
+        <div class="themed-card p-4 rounded-xl flex items-center justify-between"><span>Turkish</span><span style="color: var(--muted);">Advanced</span></div>
+        <div class="themed-card p-4 rounded-xl flex items-center justify-between"><span>English</span><span style="color: var(--muted);">Upper-Intermediate</span></div>
       </div>
     </section>
 
     <!-- HONORS LIGHTBOX (Khazar) -->
     <div id="honorLightbox" class="hidden fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center">
-      <button id="lbClose" class="absolute top-4 right-5 text-2xl md:text-3xl text-slate-300 hover:text-white" aria-label="Close">&times;</button>
-      <button id="lbPrev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 md:p-4" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+      <button id="lbClose" class="absolute top-4 right-5 text-2xl md:text-3xl hover:text-white" aria-label="Close">&times;</button>
+      <button id="lbPrev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 themed-card rounded-full p-3 md:p-4" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
       <figure class="max-w-5xl w-[92%] md:w-[80%]">
-        <img id="lbImage" src="" alt="Honor certificate" class="w-full h-auto rounded-2xl shadow-2xl border border-white/20" />
-        <figcaption id="lbCaption" class="text-center text-slate-200 mt-4 text-sm md:text-base"></figcaption>
+        <img id="lbImage" src="" alt="Honor certificate" class="w-full h-auto rounded-2xl shadow-2xl" style="border:1px solid var(--card-border);" />
+        <figcaption id="lbCaption" class="text-center mt-4 text-sm md:text-base"></figcaption>
       </figure>
-      <button id="lbNext" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full p-3 md:p-4" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+      <button id="lbNext" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 themed-card rounded-full p-3 md:p-4" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
 
-    <!-- PROJECT MODALS (clean markup; no UL inside P) -->
+    <!-- PROJECT & CERT MODALS -->
     <!-- PD Retail -->
     <div id="modal-pd" class="modal" role="dialog" aria-modal="true"><div class="modal-content">
-      <h3 class="text-2xl font-bold text-sky-400 mb-4">PD Model for Retail Customers (Yelo Bank)</h3>
-      <p>Built under a strict one‑month deadline from the Central Bank of Azerbaijan. Defined scope, CDEs, and feature lists; extracted and validated data via Oracle SQL; cross‑checked with APIs and business; integrated into DWH with Data Architects/Engineers. Implemented pipelines for cleaning and EDA that surfaced system/human data errors. Delivered a compliant PD model and documentation.</p>
+      <h3 class="text-2xl font-bold" style="color: var(--accent);">PD Model for Retail Customers (Yelo Bank)</h3>
+      <p>Built a <strong>Probability of Default (PD) model</strong> for <strong>retail customers</strong> within a <strong>one-month deadline</strong> mandated by the <strong>Central Bank of Azerbaijan</strong>.</p>
+      <p class="mt-3"><strong>Data Architecture & Preparation:</strong> Defined project scope, <strong>Critical Data Elements (CDEs)</strong>, and <strong>feature list</strong>. Collected and validated data from <strong>Oracle SQL</strong> databases, verified against APIs, and cross-checked with business teams for accuracy.</p>
+      <p class="mt-3">Collaborated with <strong>Data Architects</strong> and <strong>Engineers</strong> to design and populate <strong>four datamarts</strong>:</p>
+      <ul class="list-disc ml-6 mt-2">
+        <li><strong>Target Datamart</strong> — Defines target variable and label structure.</li>
+        <li><strong>DPD Datamart</strong> — Includes Days-Past-Due (DPD) data from both Central Bank and internal systems.</li>
+        <li><strong>Contract-Based Datamart</strong> — Aggregates contract-level metrics (sum, min, max, avg) across 252 feature variations (4 aggregation types × 7 time windows × 3 portfolio groups × 3 data sources).</li>
+        <li><strong>Application Datamart</strong> — Contains operational data collected during customer loan applications.</li>
+      </ul>
+      <p class="mt-3"><strong>Modeling & Evaluation:</strong> Applied <strong>Information Value (IV)</strong> and <strong>Weight of Evidence (WOE)</strong> for feature selection, followed by <strong>Logistic Regression</strong> with <strong>hyperparameter tuning</strong>. Evaluated multiple target definitions (15, 30, 60, 90 DPD) and loan age constraints (≥6 months, ≥12 months).</p>
+      <p class="mt-3"><strong>Performance Metrics:</strong></p>
+      <ul class="list-disc ml-6 mt-1">
+        <li><span style="color: var(--accent); font-weight:600;">AUC:</span> 0.78 (train), 0.74 (test), 0.71 (OOT)</li>
+        <li><span style="color: var(--accent); font-weight:600;">Precision/Recall:</span> stable across datasets</li>
+        <li><span style="color: var(--accent); font-weight:600;">Approval Rate:</span> optimized via business validation</li>
+      </ul>
+      <p class="mt-3"><strong>Deployment & Validation:</strong> Validated by <strong>Internal Validation Team</strong> and <strong>ZYPLE</strong>, then deployed to <strong>Kubernetes</strong> for real-time scoring and monitoring.</p>
+      <p class="mt-3">Delivered the full pipeline — from data sourcing to deployment — <strong>in one month</strong>, setting a new internal benchmark for compliance-driven model delivery.</p>
     </div></div>
 
-    <!-- Cross‑Sell -->
+    <!-- Cross-Sell -->
     <div id="modal-crosssell" class="modal" role="dialog" aria-modal="true"><div class="modal-content">
-      <h3 class="text-2xl font-bold text-sky-400 mb-4">Cross‑Sell Propensity Models (PASHA Bank)</h3>
-      <p>Developed ML and rule‑based recommendation models for FX, Foreign Payments, Loans, Salary Cards, and Factoring. For Loans, applied <strong>Positive‑Unlabeled Learning</strong> to handle scarce negative labels; for FX/FP, used <strong>RFM segmentation</strong> (Recency, Frequency, Monetary) to classify customers into five tiers: Active, Passive, About to be Passive, Lost, Potentially Active.</p>
-      <p class="mt-3">Aggregated data from Central Bank, transactions, and customer profiles with time‑windowed features (last 3/6/12 months). Defined <strong>CDEs</strong> and an extensive feature list, then wrote all features to a <strong>DWH datamart</strong>. Automated the full flow in <strong>Dataiku</strong> (ETL → preprocessing → model → DB write‑back) triggered monthly. Outputs feed the internal <strong>RM Tool</strong> for sales prioritization. Revenue uplift tracked via Tableau and PostgreSQL RM logs, delivering <strong>1.2M+ AZN</strong> across 2023–2024.</p>
+      <h3 class="text-2xl font-bold" style="color: var(--accent);">Cross-Sell Propensity Models (PASHA Bank)</h3>
+      <p>Developed ML and rule-based recommendation models for <strong>FX</strong>, <strong>Foreign Payments</strong>, <strong>Loans</strong>, <strong>Salary Cards</strong>, and <strong>Factoring</strong>.</p>
+      <ul class="list-disc ml-6 mt-2">
+        <li><strong>Loans:</strong> used <strong>Positive-Unlabeled (PU) Learning</strong> to handle scarce negatives — suited for marketing where “not offered” ≠ “negative”.</li>
+        <li><strong>FX & Foreign Payments:</strong> <strong>RFM segmentation</strong> (Recency, Frequency, Monetary) with 5 labels (Active, Passive, About-to-be-Passive, Lost, Potentially Active).</li>
+        <li><strong>Other products:</strong> rule-based heuristics aligned with business criteria.</li>
+      </ul>
+      <p class="mt-3">Data sources: Central Bank, transactional DWH, CRM. Built time-windowed features (3/6/12 months), defined <strong>CDEs</strong>, curated feature list, and materialized to a <strong>DWH datamart</strong>. Automated monthly in <strong>Dataiku</strong> (ETL → preprocess → model → DB write-back). Results power the internal <strong>RM Tool</strong> for sales prioritization.</p>
+      <p class="mt-3">Revenue uplift tracked via <strong>Tableau</strong> dashboards and <strong>PostgreSQL</strong> RM logs exceeded <strong>₼1.2M AZN</strong> across 2023–2024.</p>
     </div></div>
 
     <!-- Fraud -->
     <div id="modal-fraud" class="modal" role="dialog" aria-modal="true"><div class="modal-content">
-      <h3 class="text-2xl font-bold text-sky-400 mb-2">Fraud Detection & Prevention (PASHA Bank)</h3>
-      <p>Implemented a <strong>near real‑time</strong> fraud detection framework combining unsupervised anomaly detection (Isolation Forest, Autoencoder) and supervised classification (Gradient Boosting, Logistic Regression) in <strong>Dataiku</strong> with <strong>PySpark</strong> for large‑scale data.</p>
+      <h3 class="text-2xl font-bold" style="color: var(--accent);">Fraud Detection & Prevention (PASHA Bank)</h3>
+      <p>Implemented a <strong>near real-time</strong> fraud detection framework combining <strong>unsupervised anomaly detection</strong> (Isolation Forest, Autoencoder) and <strong>supervised classification</strong> (Gradient Boosting, Logistic Regression) in <strong>Dataiku</strong> with <strong>PySpark</strong> for large data volumes.</p>
       <p class="mt-3">Hybrid model performance (test env):</p>
-      <ul class="list-disc ml-6 mt-1 text-slate-300">
+      <ul class="list-disc ml-6 mt-1">
         <li>Precision: ~<strong>88%</strong></li>
         <li>Recall: ~<strong>82%</strong></li>
         <li>AUC: ~<strong>0.91</strong></li>
       </ul>
-      <p class="mt-3">The <strong>supervised model</strong> performed best and was moved to production for continuous observation. The system reduced false positives by ~<strong>35%</strong> and analyst review time by ~<strong>25%</strong>.</p>
+      <p class="mt-3">The <strong>supervised model</strong> performed best and was promoted to production for continuous observation, reducing false positives by ~<strong>35%</strong> and analyst review time by ~<strong>25%</strong>.</p>
     </div></div>
 
     <!-- News / NLP -->
     <div id="modal-news" class="modal" role="dialog" aria-modal="true"><div class="modal-content">
-      <h3 class="text-2xl font-bold text-sky-400 mb-4">News & NLP Analytics (PASHA Bank)</h3>
-      <p>Built an end‑to‑end news intelligence pipeline for CRM and Counterparty Check. Scrapes trusted Azerbaijani sources every 10 minutes (static via <strong>requests + BeautifulSoup</strong>, dynamic via <strong>Selenium</strong>), assigns unique IDs and metadata, and stores to PostgreSQL.</p>
-      <p class="mt-3"><strong>Entity matching:</strong> For CRM, allowed 85–90% similarity using FuzzyWuzzy (Levenshtein). For Counterparty Check, applied strict normalization: dictionaries for legal forms like <strong>MMC (Mehdud Məsuliyyətli Cəmiyyət — Limited Liability Company)</strong> / LLC; transliteration rules (Paşa→Pasha); punctuation/spacing variants (m.m.c / m. m. c); and token co‑occurrence (2–4‑grams) using collections to capture names such as “Bravo”, “Bravo MMC”, or “Bravo Mehdud Məsuliyyətli Cəmiyyəti”. Excluded lowercase common‑word matches (e.g., “bravo” as congratulations).</p>
-      <p class="mt-3">Exposed an API through Dataiku for Counterparty Check and connected CRM dashboards so RMs see relevant news instantly. Result: RM search time reduced by <strong>30–40 minutes</strong> per client; Counterparty Check usage‑driven income up by ~<strong>20%</strong>.</p>
+      <h3 class="text-2xl font-bold" style="color: var(--accent);">News & NLP Analytics (PASHA Bank)</h3>
+      <p>Built an end-to-end news intelligence pipeline for CRM and Counterparty Check. Scrapes trusted Azerbaijani sources every 10 minutes (static via <strong>requests + BeautifulSoup</strong>, dynamic via <strong>Selenium</strong>), assigns unique IDs and metadata, and stores to PostgreSQL.</p>
+      <p class="mt-3"><strong>Entity matching:</strong> For CRM, allowed 85–90% similarity using FuzzyWuzzy (Levenshtein). For Counterparty Check, applied strict normalization: dictionaries for legal forms like <strong>MMC (Mehdud Məsuliyyətli Cəmiyyət — Limited Liability Company)</strong> / LLC; transliteration rules (Paşa→Pasha); punctuation/spacing variants (m.m.c / m. m. c); and token co-occurrence (2–4-grams) using <code>collections</code> to capture names like “Bravo”, “Bravo MMC”, or “Bravo Mehdud Məsuliyyətli Cəmiyyəti”. Excluded lowercase common-word matches (e.g., “bravo”/congratulations).</p>
+      <p class="mt-3">Exposed an API through Dataiku for Counterparty Check and connected CRM dashboards so RMs see relevant news instantly. Result: RM search time reduced by <strong>30–40 minutes</strong> per client; Counterparty Check usage-driven income up by ~<strong>20%</strong>.</p>
     </div></div>
 
     <!-- Email Efficiency -->
     <div id="modal-email" class="modal" role="dialog" aria-modal="true"><div class="modal-content">
-      <h3 class="text-2xl font-bold text-sky-400 mb-4">Operator Email Efficiency Dashboard (PASHA Bank)</h3>
+      <h3 class="text-2xl font-bold" style="color: var(--accent);">Operator Email Efficiency Dashboard (PASHA Bank)</h3>
       <p>Measured <strong>First Response Time (FRT)</strong>, <strong>Handling Time (HT)</strong>, and operator efficiency, plus required staffing. Refactored legacy SQL with modular CTEs, efficient joins, and centralized date logic → ~<strong>90%</strong> faster queries.</p>
-      <p class="mt-3">Defined efficiency score: <code>Efficiency = HandlingTime × log(1 + ConversationCount)</code> to reward high throughput while controlling extremes. Metrics honor business time (09:00–18:00), weekends, and holidays. Found <strong>Efficiency Factor ≈ 2.9</strong>, indicating potential 2–3× staffing optimization without SLA loss.</p>
+      <p class="mt-3">Defined efficiency score: <code>Efficiency = HandlingTime × log(1 + ConversationCount)</code> to reward throughput while controlling extremes. Metrics honor business time (09:00–18:00), weekends, and holidays. Found <strong>Efficiency Factor ≈ 2.9</strong>, indicating potential 2–3× staffing optimization without SLA loss.</p>
     </div></div>
 
-    <!-- CONTACT / FOOTER -->
-    <footer id="contact" class="max-w-6xl mx-auto mt-20 text-xs text-slate-400 flex items-center justify-between border-t border-white/10 pt-4">
+    <!-- Certificate Modals -->
+    <div id="modal-cert-dataiku" class="modal" role="dialog" aria-modal="true"><div class="modal-content">
+      <h3 class="text-2xl font-bold" style="color: var(--accent);">Dataiku Certificates</h3>
+      <p class="mb-3">Choose a credential to open in a new tab:</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="https://verify.skilljar.com/c/i2c5dhxhtgjo" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg" style="background: var(--accent); color:#0b1220;">Advanced Designer <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        <a href="http://verify.skilljar.com/c/fuxv8nmahdyj" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg" style="background: var(--accent); color:#0b1220;">Core Designer <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      </div>
+    </div></div>
+
+    <div id="modal-cert-sql" class="modal" role="dialog" aria-modal="true"><div class="modal-content">
+      <h3 class="text-2xl font-bold" style="color: var(--accent);">Oracle SQL for Data Analysis — Certificate</h3>
+      <img src="pictures/qss_oracle.jpg" alt="Oracle SQL Certificate" class="w-full h-auto rounded-xl mt-3" style="border:1px solid var(--card-border);"/>
+    </div></div>
+
+    <div id="modal-cert-honors" class="modal" role="dialog" aria-modal="true"><div class="modal-content">
+      <h3 class="text-2xl font-bold" style="color: var(--accent);">Dean’s Honor — Gallery</h3>
+      <p class="mb-2">This opens the Khazar honors lightbox. Click the university card in Education to browse all images.</p>
+      <div class="flex gap-3 flex-wrap">
+        <img src="pictures/dean_honor_list1.jpg" class="w-32 h-24 object-cover rounded" alt="Honor 1" />
+        <img src="pictures/dean_honor_list2.jpg" class="w-32 h-24 object-cover rounded" alt="Honor 2" />
+        <img src="pictures/dean_honor_list3.jpg" class="w-32 h-24 object-cover rounded" alt="Honor 3" />
+        <img src="pictures/dean_honor_list4.jpg" class="w-32 h-24 object-cover rounded" alt="Honor 4" />
+      </div>
+    </div></div>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="max-w-6xl mx-auto mt-20 text-xs flex items-center justify-between pt-4" style="border-top:1px solid var(--card-border); color: var(--muted);">
       <p>© <span id="year"></span> Alihuseyn Ismayilov</p>
-      <p>Built with HTML • Tailwind • AOS • Chart.js</p>
     </footer>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    // Init
+    // AOS & Year
     AOS.init({ once:true });
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Theme toggle
+    const htmlEl = document.documentElement;
+    const toggleBtn = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    if (toggleBtn) toggleBtn.textContent = savedTheme === 'dark' ? '🌙' : '🌞';
+    toggleBtn?.addEventListener('click', ()=>{
+      const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      if (toggleBtn) toggleBtn.textContent = next === 'dark' ? '🌙' : '🌞';
+    });
 
     // Honors Lightbox (Khazar)
     const honorImages = [
@@ -329,25 +412,28 @@
     function closeLightbox(){ lb.classList.add('hidden'); }
     function nextSlide(){ idx=(idx+1)%honorImages.length; setSlide(); }
     function prevSlide(){ idx=(idx-1+honorImages.length)%honorImages.length; setSlide(); }
-    if(khazarCard){ khazarCard.addEventListener('click', ()=> openLightbox(0)); }
+    khazarCard?.addEventListener('click', ()=> openLightbox(0));
+    lb?.addEventListener('click', (e)=>{ const fig = lb.querySelector('figure'); if(fig && !fig.contains(e.target)) closeLightbox(); });
     btnClose?.addEventListener('click', closeLightbox);
     btnNext?.addEventListener('click', nextSlide);
     btnPrev?.addEventListener('click', prevSlide);
-    window.addEventListener('keydown', (e)=>{ if(lb.classList.contains('hidden')) return; if(e.key==='Escape') closeLightbox(); if(e.key==='ArrowRight') nextSlide(); if(e.key==='ArrowLeft') prevSlide(); });
+    window.addEventListener('keydown', (e)=>{ if(lb && lb.classList.contains('hidden')) return; if(e.key==='Escape') closeLightbox(); if(e.key==='ArrowRight') nextSlide(); if(e.key==='ArrowLeft') prevSlide(); });
 
-    // Skills Chart (Horizontal bars) — single init & fixed container height
+    // Skills Chart (Horizontal bars) — guarded init
     function initSkillsChart(){
-      const el = document.getElementById('skillsChart');
-      if(!el) return;
-      const ctx = el.getContext('2d');
-      if(window._skillsChart){ window._skillsChart.destroy(); }
-      window._skillsChart = new Chart(ctx, {
+      const canvas = document.getElementById('skillsChart');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if(window.skillsChart && typeof window.skillsChart.destroy === 'function') {
+        window.skillsChart.destroy();
+      }
+      window.skillsChart = new Chart(ctx, {
         type: 'bar',
         data: {
           labels: ['Python', 'SQL', 'Machine Learning', 'Dataiku', 'Tableau', 'Qlik Sense', 'Flask', 'Kubernetes'],
           datasets: [{
             label: 'Years',
-            data: [3, 3, 2.5, 2, 2, 1.5, 1, 1], // edit your numbers
+            data: [3, 3, 2.5, 2, 2, 1.5, 1, 1], /* update these as needed */
             backgroundColor: 'rgba(56,189,248,0.75)',
             borderRadius: 8,
             barThickness: 18
@@ -359,26 +445,27 @@
           maintainAspectRatio: false,
           animation: false,
           scales: {
-            x: { beginAtZero: true, ticks: { color: '#e2e8f0' }, grid: { color: 'rgba(255,255,255,0.06)' } },
-            y: { ticks: { color: '#e2e8f0' }, grid: { display: false } }
+            x: { beginAtZero: true, ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text') }, grid: { color: 'rgba(127,127,127,0.15)' } },
+            y: { ticks: { color: getComputedStyle(document.documentElement).getPropertyValue('--text') }, grid: { display: false } }
           },
           plugins: { legend: { display: false } }
         }
       });
     }
     initSkillsChart();
+    const observer = new MutationObserver(()=>{ initSkillsChart(); });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-    // Project Modals
-    function openModal(key){
-      const el = document.getElementById('modal-'+key);
-      if(el) el.classList.add('active');
-    }
+    // Project & Certificate Modals
+    function closeAllModals(){ document.querySelectorAll('.modal.active').forEach(m=>m.classList.remove('active')); }
+    function openModal(key){ closeAllModals(); const el = document.getElementById('modal-'+key); if(el) el.classList.add('active'); }
     document.querySelectorAll('.modal').forEach(m => {
-      m.addEventListener('click', e => { if(e.target === m) m.classList.remove('active'); });
+      m.addEventListener('click', e => {
+        const content = m.querySelector('.modal-content');
+        if(!content || !content.contains(e.target)) { m.classList.remove('active'); }
+      });
     });
-    window.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape') document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'));
-    });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeAllModals(); });
   </script>
 </body>
 </html>
